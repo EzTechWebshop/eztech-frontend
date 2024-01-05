@@ -7,30 +7,33 @@ import Stripe from "stripe";
 
 // process.env.STRIPE_SECRET_KEY!
 // temporary key, see if the process.env works or not
-const stripe = new Stripe("sk_test_51O76ICDHvFZqPnkqtIDylAezcfJMUXzqA3VBNJm4MrxCcsexzHQ7kFDgX8403tn4v6o0WF3mDxSZCGKxLlBlcsDi002i0C2wZ3", {
+const stripe = new Stripe(
+  "sk_test_51O76ICDHvFZqPnkqtIDylAezcfJMUXzqA3VBNJm4MrxCcsexzHQ7kFDgX8403tn4v6o0WF3mDxSZCGKxLlBlcsDi002i0C2wZ3",
+  {
     typescript: true,
     apiVersion: "2023-10-16",
-});
+  },
+);
 
 export async function POST(req: NextRequest) {
-    const { data } = await req.json();
-    const { amount, email, name } = data;
+  const { data } = await req.json();
+  const { amount, email, name } = data;
 
-    const customer = await stripe.customers.create({
-        name: name,
-        email: email,
+  const customer = await stripe.customers.create({
+    name: name,
+    email: email,
+  });
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Number(amount) * 100,
+      currency: "DKK",
+      customer: customer.id,
     });
-
-    try {
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: Number(amount) * 100,
-            currency: "DKK",
-            customer: customer.id,
-        });
-        return new NextResponse(paymentIntent.client_secret, { status: 200 });
-    } catch (error: any) {
-        return new NextResponse(error, {
-            status: 400,
-        });
-    }
+    return new NextResponse(paymentIntent.client_secret, { status: 200 });
+  } catch (error: any) {
+    return new NextResponse(error, {
+      status: 400,
+    });
+  }
 }

@@ -10,43 +10,46 @@ import { useRouter } from "next/navigation";
 import { IoHeartOutline, IoTrashBinOutline } from "react-icons/io5";
 
 export type RemoveProductFromWishlistButtonProps = {
-    product: Product;
+  product: Product;
 };
-export default function RemoveProductFromWishlistButton({ ...props }: RemoveProductFromWishlistButtonProps) {
-    const router = useRouter();
-    const queryClient = useQueryClient();
-    const { product } = props;
-    const { toast } = useToast();
-    const removeItem = () => {
-        mutationRemove.mutate(product.id);
-    };
+export default function RemoveProductFromWishlistButton({
+  ...props
+}: RemoveProductFromWishlistButtonProps) {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { product } = props;
+  const { toast } = useToast();
+  const removeItem = () => {
+    mutationRemove.mutate(product.id);
+  };
 
-    const mutationRemove = useMutation({
-        mutationFn: (productId: number) => RemoveFromWishlist(productId),
-        onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: ["wishlist"] });
-            router.refresh();
-            toast({
-                title: "Product removed from wishlist",
-            });
-        },
-        onError: (error) => {
-            toast({
-                title: "Failed to remove product from wishlist",
-            });
-        },
-    });
+  const mutationRemove = useMutation({
+    mutationFn: (productId: number) => RemoveFromWishlist(productId),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      router.refresh();
+      toast({
+        title: "Product removed from wishlist",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Failed to remove product from wishlist",
+      });
+    },
+  });
 
-    return (
-        <>
-            <Button
-                disabled={mutationRemove.isPending}
-                onClick={removeItem}
-                buttonTip="Remove from wishlist"
-                variant={"destructive"}
-                size={"icon"}>
-                <IoHeartOutline size={18} />
-            </Button>
-        </>
-    );
+  return (
+    <>
+      <Button
+        disabled={mutationRemove.isPending}
+        onClick={removeItem}
+        buttonTip="Remove from wishlist"
+        variant={"destructive"}
+        size={"icon"}
+      >
+        <IoHeartOutline size={18} />
+      </Button>
+    </>
+  );
 }
