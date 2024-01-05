@@ -273,7 +273,7 @@ const promotion = {
                 "Content-Type": "multipart/form-data",
             },
         });
-        return res.data;
+        return res;
     },
 }
 

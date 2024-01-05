@@ -9,7 +9,7 @@ import { Card, CardContent, CardFooter } from "./ui/card";
 import { Heading, Text } from "@radix-ui/themes";
 import { CatalogPromotions } from "@/types/public-types";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const basePath = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
 type FrontPageCarouselProps = {
     data: CatalogPromotions;
@@ -27,25 +27,17 @@ export default function FrontPageCarousel({ ...props }: FrontPageCarouselProps) 
                             <Card>
                                 <CardContent className="flex flex-col gap-4 aspect-square items-center justify-center p-6">
                                     <Heading size={"4"}>{promotion.title}</Heading>
-                                    {promotion.imageUrl ? (
-                                    <AspectRatio ratio={16 / 9}>
+                                        <div className="relative overflow-hidden w-[450px]">
+                                        <AspectRatio ratio={16 / 9}>
                                         <Image
-                                            src={`${basePath}/api/image/${promotion.imageUrl}`}
+                                            src={`${basePath}/${promotion.imageUrl}`}
+                                            style={{objectFit: "contain"}}
                                             fill={true}
                                             alt="promotion"
                                             className="rounded-md object-cover"
                                         />
                                     </AspectRatio>
-                                    ):(
-                                        <AspectRatio ratio={16 / 9}>
-                                            <Image
-                                                src={`/no-image.jpg`}
-                                                fill={true}
-                                                alt="promotion"
-                                                className="rounded-md object-cover"
-                                            />
-                                        </AspectRatio>
-                                    )}
+                                    </div>
                                     <Text>{promotion.description}</Text>
                                 </CardContent>
                                 <CardFooter>

@@ -39,7 +39,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         <AdminLayoutButton>
                             <Link href="/admin/promotions">Promotions</Link>
                         </AdminLayoutButton>
-                            
                     </div>
                 </div>
             </div>

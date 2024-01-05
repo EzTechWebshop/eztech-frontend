@@ -1,17 +1,14 @@
-"use client";
-import { AddPromotionImage } from "@/server/promotion-actions";
+import AddImageToPromotion from "@/components/actions/add-image-to-promotion";
 import DetailText from "@/components/admin-components/detail-text";
 import DetailsBox from "@/components/admin-components/details-box";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import { Product, Promotion } from "@/types/domain-types";
 import { Text } from "@radix-ui/themes";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { IoTrashBinOutline } from "react-icons/io5";
 import EditPromotionModal from "../modals/edit-promotion-modal";
-import { Input } from "@/components/ui/input";
+
+const basePath = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
 // PRODUCT DETAILS
 type PromotionDetailsProps = {
@@ -21,29 +18,7 @@ type PromotionDetailsProps = {
     };
 };
 export default function PromotionDetails({ ...props }: PromotionDetailsProps) {
-    const router = useRouter();
-    const { toast } = useToast();
     const { promotion, products } = props.item;
-
-    const handleDeletePromotion = async () => {
-        alert("delete");
-        return;
-    };
-
-    const handleAddImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const formData = new FormData();
-
-        if (e.target.files && e.target.files.length > 0) {
-            formData.append("file", e.target.files[0]);
-        }
-        const result = await AddPromotionImage(promotion.id, formData);
-        if (result) {
-            toast({
-                title: "Image added successfully",
-            });
-            router.refresh();
-        }
-    };
 
     return (
         <div className="flex flex-col space-y-2">
@@ -53,7 +28,7 @@ export default function PromotionDetails({ ...props }: PromotionDetailsProps) {
                     <DetailText label={"Title"} text={promotion.title} />
                 </DetailsBox>
                 <div className=" absolute right-0 border-2 rounded-lg shadow-lg mr-4 mt-4">
-                    <Image src={`/no-image.jpg`} width={250} height={250} alt="img" />
+                    <Image src={`${basePath}/${promotion.imageUrl}`} width={250} height={250} alt="img" />
                 </div>
             </div>
             <DetailsBox label={"Description"} className="mr-8">
@@ -85,7 +60,7 @@ export default function PromotionDetails({ ...props }: PromotionDetailsProps) {
                     <EditPromotionModal promotion={promotion} />
                 </DetailsBox>
                 <DetailsBox label={"Change Image"} className="flex space-x-4">
-                    <Input type="file" onChange={handleAddImage} />
+                    <AddImageToPromotion promotion={promotion} />
                 </DetailsBox>
                 {promotion.isActive && (
                     <DetailsBox label={"Manage status"} className="flex space-x-4">
@@ -94,7 +69,7 @@ export default function PromotionDetails({ ...props }: PromotionDetailsProps) {
                     </DetailsBox>
                 )}
                 <DetailsBox label={"Delete"} className="flex space-x-4">
-                    <Button variant={"destructive"} onClick={handleDeletePromotion}>
+                    <Button variant={"destructive"}>
                         <IoTrashBinOutline size={20} />
                     </Button>
                 </DetailsBox>

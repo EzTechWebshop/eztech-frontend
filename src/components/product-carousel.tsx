@@ -12,7 +12,7 @@ type ProductCarouselProps = {
     product: Product;
 };
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const basePath = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
 export function ProductCarousel({ ...props }: ProductCarouselProps) {
     const { product } = props;
@@ -23,31 +23,34 @@ export function ProductCarousel({ ...props }: ProductCarouselProps) {
     if (product.images.length == 0) return <div></div>;
     return (
         <div className="flex flex-1 gap-4">
-            <ScrollArea className="flex flex-wrap w-fit border-2 gap-4 p-4 max-h-[80vh]">
+            <ScrollArea className="flex flex-wrap w-fit border-2 gap-2 p-4 max-h-[80vh]">
+                <div className="flex flex-col space-y-4 flex-wrap">
                 {product.images.map((image) => (
-                    <div key={image.id}>
+                    <div className="relative w-[100px] h-[100px]" key={image.id}>
                         <Button
                             onClick={() => handleSelect(image.fileName)}
                             variant={"ghost"}
                             size={"carousel"}
-                            className={cn("p-4", activeImage == image.fileName && "")}>
+                            className={cn("p-2", activeImage == image.fileName && "")}>
                             <Image
-                                src={`${basePath}/api/image/${image.fileName}`}
-                                height={50}
-                                width={100}
+                                style={{objectFit: "contain"}}
+                                src={`${basePath}/${image.fileName}`}
+                                height={250}
+                                width={250}
                                 alt="img"
                                 className="object-cover"
                             />
                         </Button>
                     </div>
-                ))}
+                ))}</div>
             </ScrollArea>
-            <div className="w-[450px] ml-16 mt-16">
+            <div className="flex relative w-[300px]">
                 <AspectRatio ratio={16 / 9}>
                     <Image
+                        style={{objectFit: "contain"}}
                         width={500}
                         height={500}
-                        src={`${basePath}/api/image/${
+                        src={`${basePath}/${
                             activeImage ? activeImage : product.images[0].fileName
                         } `}
                         alt="Image"

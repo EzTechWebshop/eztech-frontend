@@ -13,8 +13,7 @@ import { Text } from "@radix-ui/themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoImageOutline, IoTrashBinOutline } from "react-icons/io5";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const basePath = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 // Edit Product Images Dialog
 type EditProductImagesDialogProps = {
     product: Product;
@@ -121,7 +120,7 @@ const ImageTest = ({ fileName }: { fileName: string }) => {
                     width={150}
                     height={150}
                     className="flex h-full w-fit"
-                    src={`${basePath}/api/image/${fileName}`}
+                    src={`${basePath}/${fileName}`}
                     alt="Landscape photograph by Tobias Tullius"
                 />
             </AspectRatio>
