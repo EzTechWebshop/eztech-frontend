@@ -26,7 +26,7 @@ const CartItemCard = ({ ...props }: CartItemCardProps) => {
 
   return (
     <div className="flex flex-col relative gap-4 p-2 rounded-lg border-2">
-      {product.discount && (
+      {product.discount > 0 && (
         <Badge
           variant={"outline"}
           className="absolute w-fit h-fit z-50 px-1.5 py-1.5 top-0 bg-green-500 right-0"
