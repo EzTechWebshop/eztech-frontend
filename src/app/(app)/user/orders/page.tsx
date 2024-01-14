@@ -1,2 +1,2 @@
-import UserOrdersPage from "./orders.page";
-export default UserOrdersPage;
+import UserOrdersPage from './orders.page'
+export default UserOrdersPage

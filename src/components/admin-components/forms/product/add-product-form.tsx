@@ -1,131 +1,147 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { AddProduct } from "@/server/product-actions";
-import { AddProductRequest } from "@/types/admin-types/admin-product-types";
-import { ConfirmationWindow } from "@/utils/alerts";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { AddProduct } from '@/server/product-actions'
+import { AddProductRequest } from '@/types/admin-types/admin-product-types'
+import { ConfirmationWindow } from '@/utils/alerts'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 const addProductFormSchema = z.object({
-  name: z.string().min(2).max(100),
-  description: z.string().min(2).max(1000),
-  price: z.number().min(0).max(1000000),
-  stock: z.number().min(0).max(1000000),
-});
+    name: z.string().min(2).max(100),
+    description: z.string().min(2).max(1000),
+    price: z.number().min(0).max(1000000),
+    stock: z.number().min(0).max(1000000),
+})
 type AddProductFormProps = {
-  action: (result: any) => void;
-};
+    action: (result: any) => void
+}
 export function AddProductForm({ ...props }: AddProductFormProps) {
-  const { action } = props;
-  const form = useForm<z.infer<typeof addProductFormSchema>>({
-    resolver: zodResolver(addProductFormSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      price: 0,
-      stock: 0,
-    },
-  });
-  const onSubmit = async (data: z.infer<typeof addProductFormSchema>) => {
-    if(!ConfirmationWindow("Are you sure you want to create this product?")){
-      return;
+    const { action } = props
+    const form = useForm<z.infer<typeof addProductFormSchema>>({
+        resolver: zodResolver(addProductFormSchema),
+        defaultValues: {
+            name: '',
+            description: '',
+            price: 0,
+            stock: 0,
+        },
+    })
+    const onSubmit = async (data: z.infer<typeof addProductFormSchema>) => {
+        if (
+            !ConfirmationWindow('Are you sure you want to create this product?')
+        ) {
+            return
+        }
+        const request: AddProductRequest = {
+            name: data.name,
+            description: data.description,
+            price: data.price,
+            stock: data.stock,
+        }
+        const result = await AddProduct(request)
+        if (result) {
+            action(result)
+        }
     }
-    const request: AddProductRequest = {
-      name: data.name,
-      description: data.description,
-      price: data.price,
-      stock: data.stock,
-    };
-    const result = await AddProduct(request);
-    if (result) {
-      action(result);
-    }
-  };
-  return (
-    <>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea
-                    className="min-h-[20vh] max-h-[20vh] resize-none"
-                    placeholder="Enter description"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Price</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+    return (
+        <>
+            <Form {...form}>
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8"
+                >
+                    <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Name</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Enter name"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="stock"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Stock</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                    <FormField
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        className="min-h-[20vh] max-h-[20vh] resize-none"
+                                        placeholder="Enter description"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
-    </>
-  );
+                    <div className="grid grid-cols-2 gap-4">
+                        <FormField
+                            control={form.control}
+                            name="price"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Price</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="number"
+                                            {...field}
+                                            onChange={(event) =>
+                                                field.onChange(
+                                                    +event.target.value
+                                                )
+                                            }
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="stock"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Stock</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="number"
+                                            {...field}
+                                            onChange={(event) =>
+                                                field.onChange(
+                                                    +event.target.value
+                                                )
+                                            }
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <Button type="submit">Submit</Button>
+                </form>
+            </Form>
+        </>
+    )
 }

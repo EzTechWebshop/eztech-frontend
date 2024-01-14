@@ -1,33 +1,43 @@
-"use client";
+'use client'
 
-import { AddProductForm } from "@/components/admin-components/forms/product/add-product-form";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
-import { HandleQueryChange } from "@/utils/handle-query-change";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
-import { IoAddOutline } from "react-icons/io5";
-import { useToast } from "@/components/ui/use-toast";
+import { AddProductForm } from '@/components/admin-components/forms/product/add-product-form'
+import { Button } from '@/components/ui/button'
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogHeader,
+    DialogTrigger,
+} from '@/components/ui/dialog'
+import { HandleQueryChange } from '@/utils/handle-query-change'
+import { useRouter } from 'next/navigation'
+import { useRef } from 'react'
+import { IoAddOutline } from 'react-icons/io5'
+import { useToast } from '@/components/ui/use-toast'
 
 export default function AddProductModal() {
-    const { toast } = useToast();
+    const { toast } = useToast()
 
-    const router = useRouter();
-    const closeDialogRef = useRef<HTMLButtonElement>(null);
+    const router = useRouter()
+    const closeDialogRef = useRef<HTMLButtonElement>(null)
 
     const actionSuccess = (result: any) => {
-        const query = HandleQueryChange("productId", result.id.toString());
-        router.push("?" + query);
-        closeDialogRef.current?.click();
+        const query = HandleQueryChange('productId', result.id.toString())
+        router.push('?' + query)
+        closeDialogRef.current?.click()
         toast({
-            title: "Product added",
-        });
-    };
+            title: 'Product added',
+        })
+    }
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button buttonTip="Add Product" variant="iconCircle" size="icon">
+                <Button
+                    buttonTip="Add Product"
+                    variant="iconCircle"
+                    size="icon"
+                >
                     <IoAddOutline size={20} />
                 </Button>
             </DialogTrigger>
@@ -37,5 +47,5 @@ export default function AddProductModal() {
                 <DialogClose ref={closeDialogRef} />
             </DialogContent>
         </Dialog>
-    );
+    )
 }

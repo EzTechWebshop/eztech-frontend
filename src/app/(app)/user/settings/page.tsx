@@ -1,2 +1,2 @@
-import UserSettings from "./user.settings";
-export default UserSettings;
+import UserSettings from './user.settings'
+export default UserSettings

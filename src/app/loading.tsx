@@ -1,9 +1,9 @@
-import SpinnerLoad from "@/components/loading-fields/spinner-load";
+import SpinnerLoad from '@/components/loading-fields/spinner-load'
 
 export default function Loading() {
-  return (
-    <div className="flex flex-1">
-      <SpinnerLoad />
-    </div>
-  );
+    return (
+        <div className="flex flex-1">
+            <SpinnerLoad />
+        </div>
+    )
 }

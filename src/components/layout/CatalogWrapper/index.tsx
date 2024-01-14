@@ -1,2 +1,2 @@
-import CatalogWrapper from "./CatalogWrapper";
-export default CatalogWrapper;
+import CatalogWrapper from './CatalogWrapper'
+export default CatalogWrapper

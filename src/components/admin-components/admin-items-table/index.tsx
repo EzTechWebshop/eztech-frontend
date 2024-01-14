@@ -1,2 +1,2 @@
-import AdminTable from "./AdminItemsTable";
-export default AdminTable;
+import AdminTable from './AdminItemsTable'
+export default AdminTable

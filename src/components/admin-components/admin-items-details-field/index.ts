@@ -1,2 +1,2 @@
-import AdminItemDetails from "./admin-items-details";
-export default AdminItemDetails;
+import AdminItemDetails from './admin-items-details'
+export default AdminItemDetails
