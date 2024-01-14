@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,15 +10,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import { Textarea } from "@/components/ui/textarea";
+import { AddProduct } from "@/server/product-actions";
+import { AddProductRequest } from "@/types/admin-types/admin-product-types";
+import { ConfirmationWindow } from "@/utils/alerts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
-import { AddProductRequest } from "@/types/admin-types/admin-product-types";
-import { AddProduct } from "@/server/product-actions";
-import { Textarea } from "@/components/ui/textarea";
 
 const addProductFormSchema = z.object({
   name: z.string().min(2).max(100),
@@ -30,8 +29,6 @@ type AddProductFormProps = {
 };
 export function AddProductForm({ ...props }: AddProductFormProps) {
   const { action } = props;
-  const router = useRouter();
-  const closeDialogRef = useRef<HTMLButtonElement>(null);
   const form = useForm<z.infer<typeof addProductFormSchema>>({
     resolver: zodResolver(addProductFormSchema),
     defaultValues: {
@@ -42,6 +39,9 @@ export function AddProductForm({ ...props }: AddProductFormProps) {
     },
   });
   const onSubmit = async (data: z.infer<typeof addProductFormSchema>) => {
+    if(!ConfirmationWindow("Are you sure you want to create this product?")){
+      return;
+    }
     const request: AddProductRequest = {
       name: data.name,
       description: data.description,
@@ -51,7 +51,6 @@ export function AddProductForm({ ...props }: AddProductFormProps) {
     const result = await AddProduct(request);
     if (result) {
       action(result);
-      closeDialogRef.current?.click();
     }
   };
   return (

@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CartItem } from "@/types/domain-types";
 import { Strong, Text } from "@radix-ui/themes";

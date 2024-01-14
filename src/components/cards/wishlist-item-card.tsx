@@ -8,7 +8,7 @@ type WishlistItemCardProps = {
 };
 export default function WishlistItemCard({ ...props }: WishlistItemCardProps) {
   const { product } = props;
-  const removeItem = () => {};
+  
   return (
     <div className="flex flex-col gap-4 p-2 rounded-lg border-2">
       <div className="flex justify-between items-center">

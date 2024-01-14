@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-
 import { UserDetails } from "@/types/domain-types";
 import { UpdateUserDetailsRequest } from "@/types/user-types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -69,6 +68,11 @@ export default function UserSettingsForm({ ...props }: UserSettingsFormProps) {
     };
     const data = await UpdateUserDetails(request);
     setUpdatingDetails(false);
+    if(data){
+      toast({
+        title: "Details updated",
+      });
+    }
   }
   return (
     <Form {...form}>

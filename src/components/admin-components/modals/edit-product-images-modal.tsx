@@ -1,4 +1,5 @@
 "use client";
+
 import {
   AddProductImage,
   DeleteProductImage,
@@ -22,8 +23,10 @@ import { Text } from "@radix-ui/themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoImageOutline, IoTrashBinOutline } from "react-icons/io5";
+import { AlertWindow, ConfirmationWindow } from "@/utils/alerts";
+
 const basePath = process.env.NEXT_PUBLIC_IMAGE_URL || "";
-// Edit Product Images Dialog
+
 type EditProductImagesDialogProps = {
   product: Product;
 };
@@ -35,6 +38,9 @@ export default function EditProductImagesModal({
   const { product } = props;
 
   const handleDeleteImage = async (image: any) => {
+    if(!ConfirmationWindow("Are you sure you want to delete this image?")) {
+      return;
+    }
     const result = await DeleteProductImage(product.id, image.id).catch(() => {
       return;
     });
@@ -45,6 +51,7 @@ export default function EditProductImagesModal({
       router.refresh();
     }
   };
+
   const handleChoosePrimaryImage = async (image: any) => {
     const result = await SetProductThumbnail(product.id, image.id).catch(() => {
       return;
@@ -56,14 +63,17 @@ export default function EditProductImagesModal({
       router.refresh();
     }
   };
-  // Handle adding image, source uknown
+
   const handleAddImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(!ConfirmationWindow("Are you sure you want to add this image?")) {
+      return;
+    }
     const formData = new FormData();
     if (e.target.files && e.target.files.length > 0) {
       formData.append("file", e.target.files[0]);
     }
     const result = await AddProductImage(product.id, formData).catch((err) => {
-      alert("Failed to add image");
+      AlertWindow("Failed to add image");
     });
     if (result) {
       toast({

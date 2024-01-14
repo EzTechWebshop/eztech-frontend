@@ -1,6 +1,3 @@
-// import AddProductToCartButton from '@/components/actions/add-product-to-cart';
-// import AddProductToWishListButton from "@/components/actions/add-product-to-wishlist";
-
 import { ProductAvatar } from "@/components/product-logo";
 import { cn } from "@/lib/utils";
 import { Product } from "@/types/domain-types";

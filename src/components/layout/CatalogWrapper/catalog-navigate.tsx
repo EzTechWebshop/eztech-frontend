@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
 import { HandleQueryChange } from "@/utils/handle-query-change";
 import { useRouter, useSearchParams } from "next/navigation";
-import { set } from "react-hook-form";
 import {
   IoArrowBackCircleOutline,
   IoArrowForwardCircleOutline,

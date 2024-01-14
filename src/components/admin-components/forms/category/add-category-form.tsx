@@ -1,5 +1,5 @@
 "use client";
-import { CreateCategory } from "@/server/category-actions";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,13 +10,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { CreateCategory } from "@/server/category-actions";
 import {
   AddCategoryRequest,
   AddCategoryResponse,
 } from "@/types/admin-types/admin-category-types";
-
+import { ConfirmationWindow } from "@/utils/alerts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -28,7 +28,6 @@ type CategoryManagementProps = {
   action: (result: AddCategoryResponse) => void;
 };
 export function CreateCategoryForm({ ...props }: CategoryManagementProps) {
-  const closeDialogRef = useRef<HTMLButtonElement>(null);
   const { action } = props;
   const form = useForm<z.infer<typeof addCategoryFormSchema>>({
     resolver: zodResolver(addCategoryFormSchema),
@@ -38,6 +37,9 @@ export function CreateCategoryForm({ ...props }: CategoryManagementProps) {
     },
   });
   const onSubmit = async (data: z.infer<typeof addCategoryFormSchema>) => {
+    if(!ConfirmationWindow("Are you sure you want to create this category?")){
+      return;
+    }
     const request: AddCategoryRequest = {
       name: data.name,
       description: data.description,

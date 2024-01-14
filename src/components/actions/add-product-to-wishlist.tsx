@@ -1,9 +1,9 @@
 "use client";
+
 import { AddToWishlist } from "@/server/wishlist-actions";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
-
 import { Product } from "@/types/domain-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

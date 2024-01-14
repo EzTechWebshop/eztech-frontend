@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/domain-types";
 import { Text } from "@radix-ui/themes";
@@ -12,6 +13,7 @@ import EditDiscountPopover from "@/components/admin-components/popovers/edit-dis
 import EditProductModal from "@/components/admin-components/modals/edit-product-modal";
 import EditProductImagesModal from "@/components/admin-components/modals/edit-product-images-modal";
 import { useToast } from "@/components/ui/use-toast";
+import { ConfirmationWindow } from "@/utils/alerts";
 
 // PRODUCT DETAILS
 type ProductDetailsProps = {
@@ -23,6 +25,9 @@ export default function ProductDetails({ ...props }: ProductDetailsProps) {
   const { item } = props;
 
   const handleRemoveProduct = async () => {
+    if(!ConfirmationWindow("Are you sure you want to remove this product?")){
+      return;
+    }
     const result = await RemoveProduct(item.id).catch((err) => {
       toast({
         title: "Error removing product",

@@ -2,6 +2,7 @@ import AdminItemDetails from "@/components/admin-components/admin-items-details-
 import AdminTable from "@/components/admin-components/admin-items-table";
 import AdminMenuBar from "@/components/admin-components/admin-menu-bar";
 import AddPromotionModal from "@/components/admin-components/modals/add-promotion-modal";
+import SpinnerLoad from "@/components/loading-fields/spinner-load";
 import { AdminManagementPromotions } from "@/types/admin-types/admin-promotion-types";
 
 type PromotionManagementProps = {
@@ -12,7 +13,7 @@ export default function PromotionManagement({
 }: PromotionManagementProps) {
   const { data } = props;
   if (!data) {
-    return <div>Loading...</div>;
+    return <SpinnerLoad />
   }
 
   const labels: string[] = ["ID", "Title", "Start Date", "End Date", "Active"];

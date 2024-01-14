@@ -1,4 +1,5 @@
 "use client";
+
 import { EditProductForm } from "@/components/admin-components/forms/product/edit-product-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +15,6 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { IoPencilSharp } from "react-icons/io5";
 
-// PRODUCT MODALS AND POPOVERS
 type EditProductModalProps = {
   product: Product;
 };
@@ -28,7 +28,8 @@ export default function EditProductModal({ ...props }: EditProductModalProps) {
     router.refresh();
     closeDialogRef.current?.click();
     toast({
-      title: "Success",
+      title: "Succesfully edited product",
+      description: `Edited product ${product.name}`,
     });
   };
 

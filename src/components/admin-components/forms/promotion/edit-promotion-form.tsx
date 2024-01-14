@@ -24,6 +24,7 @@ import { format } from "date-fns";
 import { useForm } from "react-hook-form";
 import { IoCalendarOutline } from "react-icons/io5";
 import { z } from "zod";
+import { ConfirmationWindow } from "@/utils/alerts";
 
 const editPromotionFormSchema = z.object({
   title: z.string().min(2),
@@ -47,6 +48,10 @@ export function EditPromotionForm({ ...props }: EditPromotionModalProps) {
     },
   });
   const onSubmit = async (data: z.infer<typeof editPromotionFormSchema>) => {
+    if(!ConfirmationWindow("Are you sure you want to edit this promotion?")){
+      return;
+    }
+    
     const request: UpdatePromotionRequest = {
       title: data.title,
       description: data.description,

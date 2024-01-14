@@ -11,12 +11,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateFaqRequest } from "@/types/admin-types/admin-faq-types";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { ConfirmationWindow } from "@/utils/alerts";
 
 const createFaqFormSchema = z.object({
   question: z.string().min(2),
@@ -26,9 +26,6 @@ type CreateFaqFormProps = {
   action: (result: any) => void;
 };
 export function CreateFaqForm({ ...props }: CreateFaqFormProps) {
-  const router = useRouter();
-  const closeDialogRef = useRef<HTMLButtonElement>(null);
-
   const { action } = props;
 
   const form = useForm<z.infer<typeof createFaqFormSchema>>({
@@ -36,6 +33,9 @@ export function CreateFaqForm({ ...props }: CreateFaqFormProps) {
   });
 
   const onSubmit = async (data: z.infer<typeof createFaqFormSchema>) => {
+    if(!ConfirmationWindow("Are you sure you want to create this FAQ?")){
+      return;
+    }
     const request: CreateFaqRequest = {
       question: data.question,
       answer: data.answer,
@@ -46,8 +46,6 @@ export function CreateFaqForm({ ...props }: CreateFaqFormProps) {
         message: "Question already exists",
       });
     } else {
-      router.refresh();
-      closeDialogRef.current?.click();
       void action(result);
     }
   };

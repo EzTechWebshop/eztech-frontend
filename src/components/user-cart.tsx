@@ -1,4 +1,5 @@
 "use client";
+
 import { GetCart } from "@/server/cart-actions";
 import CartItemCard from "@/components/cards/cart-item-card";
 import { Badge } from "@/components/ui/badge";

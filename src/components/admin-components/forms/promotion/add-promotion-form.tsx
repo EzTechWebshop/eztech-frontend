@@ -1,5 +1,5 @@
 "use client";
-import { CreatePromotion } from "@/server/promotion-actions";
+
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -18,10 +18,11 @@ import {
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { CreatePromotion } from "@/server/promotion-actions";
 import { AddPromotionRequest } from "@/types/admin-types/admin-promotion-types";
+import { ConfirmationWindow } from "@/utils/alerts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef } from "react";
+import { format } from "date-fns";
 import { useForm } from "react-hook-form";
 import { IoCalendarOutline } from "react-icons/io5";
 import { z } from "zod";
@@ -36,7 +37,6 @@ type PromotionManagementProps = {
   action: (result: any) => void;
 };
 export function AddPromotionForm({ ...props }: PromotionManagementProps) {
-  const closeDialogRef = useRef<HTMLButtonElement>(null);
   const { action } = props;
   const form = useForm<z.infer<typeof addPromotionFormSchema>>({
     resolver: zodResolver(addPromotionFormSchema),
@@ -48,6 +48,9 @@ export function AddPromotionForm({ ...props }: PromotionManagementProps) {
     },
   });
   const onSubmit = async (data: z.infer<typeof addPromotionFormSchema>) => {
+    if(!ConfirmationWindow("Are you sure you want to create this promotion?")){
+      return;
+    }
     const startDate = new Date(data.startDate);
     const endDate = new Date(data.endDate);
     const request: AddPromotionRequest = {

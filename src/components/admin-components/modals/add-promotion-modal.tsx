@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,8 +13,10 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { IoAddOutline } from "react-icons/io5";
 import { AddPromotionForm } from "@/components/admin-components/forms/promotion/add-promotion-form";
+import { useToast } from '@/components/ui/use-toast';
 
 export default function AddPromotionModal() {
+  const { toast } = useToast();
   const router = useRouter();
   const closeDialogRef = useRef<HTMLButtonElement>(null);
 
@@ -21,6 +24,9 @@ export default function AddPromotionModal() {
     const query = HandleQueryChange("promotionId", result.id.toString());
     router.push("?" + query);
     closeDialogRef.current?.click();
+    toast({
+      title: "Promotion added",
+    });
   };
 
   return (

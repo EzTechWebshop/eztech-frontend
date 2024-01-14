@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { CiDiscount1 } from "react-icons/ci";
 import { UpdateProduct } from "@/server/product-actions";
+import { ConfirmationWindow } from "@/utils/alerts";
 
 // Edit Discount Button
 type EditDiscountButtonProps = {
@@ -29,6 +30,7 @@ export default function EditDiscountModal({
   const { product } = props;
   const [discount, setDiscount] = useState(0);
   const [infoText, setInfoText] = useState("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (value > maxDiscount) {
@@ -46,6 +48,9 @@ export default function EditDiscountModal({
     setDiscount(value);
   };
   const handleSubmit = async () => {
+    if(!ConfirmationWindow("Are you sure you want to change the discount?")) {
+      return;
+    }
     const request: UpdateProductRequest = {
       discount: discount,
     };

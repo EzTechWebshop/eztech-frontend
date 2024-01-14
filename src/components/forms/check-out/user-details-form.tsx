@@ -3,10 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { Cart, UserDetails } from "@/types/domain-types";
+import { UserDetails } from "@/types/domain-types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -30,7 +28,6 @@ const CheckOutForm = ({ ...props }: OrderFormProps) => {
 
   const onSubmit: SubmitHandler<FormType> = async (orderDetails) => {
     action(orderDetails);
-    // TODO: Send order to server and validate? or validate here?
   };
 
   const form = useForm<FormType>({

@@ -1,13 +1,12 @@
 "use client";
-import { AddToWishlist, RemoveFromWishlist } from "@/server/wishlist-actions";
+
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
-
+import { RemoveFromWishlist } from "@/server/wishlist-actions";
 import { Product } from "@/types/domain-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IoHeartOutline, IoTrashBinOutline } from "react-icons/io5";
+import { IoHeartOutline } from "react-icons/io5";
 
 export type RemoveProductFromWishlistButtonProps = {
   product: Product;

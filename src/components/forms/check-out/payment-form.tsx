@@ -1,24 +1,24 @@
 "use client";
 
-import { CheckOutGetProductById } from "@/server/checkout-actions";
-import { CreateOrder } from "@/server/order-actions";
-import { GetProductById } from "@/server/product-actions";
-import { CreateOrderItem, CreateOrderRequest } from "@/types/checkout-types";
 /**
  * Source: https://sultanoveli.medium.com/how-to-add-stripe-payments-to-your-next-js-app-d1cfced7c8a5
  * Modified based on the needs of the project.
- */
+*/
+
+import SpinnerLoad from "@/components/loading-fields/spinner-load";
+import { CreateOrder } from "@/server/order-actions";
+import { CreateOrderItem, CreateOrderRequest } from "@/types/checkout-types";
+
 import { Cart, CartItem, Product } from "@/types/domain-types";
+import { AlertWindow, ConfirmationWindow } from "@/utils/alerts";
 import { Text } from "@radix-ui/themes";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import {
   StripeCardElementOptions,
-  StripeCardElementUpdateOptions,
-  StripeElementsOptions,
+  StripeElementsOptions
 } from "@stripe/stripe-js";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { LucideLoader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -44,6 +44,9 @@ export default function PaymentForm({ ...props }: PaymentFormProps) {
   if (!cart || !details) return null;
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    if(!ConfirmationWindow("Are you sure you want to pay?")) {
+      return;
+    }
     setLoadingPayment(true);
     // Finds the product in the TestProducts array that matches the id of the cartItem.
     // Prevents the user from changing the price of the product in the cart.
@@ -66,7 +69,7 @@ export default function PaymentForm({ ...props }: PaymentFormProps) {
       },
     );
     if (!OrderItems) {
-      alert("Something went wrong, please try again later.");
+      AlertWindow("Something went wrong, please try again later.");
       setLoadingPayment(false);
       return;
     }
@@ -80,12 +83,12 @@ export default function PaymentForm({ ...props }: PaymentFormProps) {
     try {
       if (!stripe || !cardElement) {
         // Stripe.js has not yet loaded.
-        alert("Something went wrong, please try again later.");
+        AlertWindow("Something went wrong, please try again later.");
         setLoadingPayment(false);
         return null;
       }
     } catch (error) {
-      alert("Something went wrong, please try again later.");
+      AlertWindow("Something went wrong, please try again later.");
       setLoadingPayment(false);
     }
 
@@ -130,7 +133,7 @@ export default function PaymentForm({ ...props }: PaymentFormProps) {
     } else {
       router.push(`/checkout/error`);
       setLoadingPayment(false);
-      alert("Payment failed");
+      AlertWindow("Payment failed");
     }
   };
 
@@ -159,9 +162,7 @@ export default function PaymentForm({ ...props }: PaymentFormProps) {
         <form onSubmit={onSubmit}>
           <CardElement options={option} />
           {loadingPayment ? (
-            <>
-              <LucideLoader2 className="my-spinner" />
-            </>
+            <SpinnerLoad />
           ) : (
             <button disabled={loadingPayment} type="submit">
               Pay Now

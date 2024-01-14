@@ -2,6 +2,7 @@ import AdminItemDetails from "@/components/admin-components/admin-items-details-
 import AdminTable from "@/components/admin-components/admin-items-table";
 import AdminMenuBar from "@/components/admin-components/admin-menu-bar";
 import AddProductModal from "@/components/admin-components/modals/add-product-modal";
+import SpinnerLoad from "@/components/loading-fields/spinner-load";
 import { AdminManagementProducts } from "@/types/admin-types/admin-product-types";
 
 type ProductManagementProps = {
@@ -11,7 +12,7 @@ export default function ProductManagement({
   ...props
 }: ProductManagementProps) {
   if (!props.data) {
-    return <div>Loading...</div>;
+    return <SpinnerLoad />
   }
   const { data } = props;
   const labels: string[] = [

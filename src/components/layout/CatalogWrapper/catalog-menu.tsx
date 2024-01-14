@@ -1,14 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { HandleQueryChange } from "@/utils/handle-query-change";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { IoReloadCircleOutline, IoSearch } from "react-icons/io5";
 import CatalogFilter from "./catalog-filter";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { set } from "react-hook-form";
 
 type CatalogMenuProps = {
   loading: boolean;

@@ -1,4 +1,3 @@
-import { UpdateProduct } from "@/server/product-actions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,12 +8,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { UpdateProduct } from "@/server/product-actions";
 import { UpdateProductRequest } from "@/types/admin-types/admin-product-types";
-
 import { Product } from "@/types/domain-types";
+import { ConfirmationWindow } from "@/utils/alerts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -30,8 +28,6 @@ type EditProductModalProps = {
 };
 export function EditProductForm({ ...props }: EditProductModalProps) {
   const { product, action } = props;
-  const router = useRouter();
-  const closeDialogRef = useRef<HTMLButtonElement>(null);
   const form = useForm<z.infer<typeof editProductFormSchema>>({
     resolver: zodResolver(editProductFormSchema),
     defaultValues: {
@@ -42,6 +38,9 @@ export function EditProductForm({ ...props }: EditProductModalProps) {
     },
   });
   const onSubmit = async (data: z.infer<typeof editProductFormSchema>) => {
+    if(!ConfirmationWindow("Are you sure you want to edit this product?")){
+      return;
+    }
     const request: UpdateProductRequest = {
       name: data.name,
       description: data.description,

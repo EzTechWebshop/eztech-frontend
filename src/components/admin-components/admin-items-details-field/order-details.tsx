@@ -17,6 +17,7 @@ import DetailsBox from "@/components/admin-components/details-box";
 import { useRouter } from "next/navigation";
 import { ChangeOrderStatus } from "@/server/order-actions";
 import { GetProductById } from "@/server/product-actions";
+import { ConfirmationWindow } from "@/utils/alerts";
 
 // ORDER DETAILS
 type OrderDetailsProps = {
@@ -28,6 +29,9 @@ export default function OrderDetails({ ...props }: OrderDetailsProps) {
   const { item } = props;
 
   const changeOrderStatus = async (status: string) => {
+    if(!ConfirmationWindow(`Are you sure you want to change order status to ${status}?`)){
+      return;
+    }
     const data = await ChangeOrderStatus(item!.id ?? 0, status);
     if (data == "Order status changed") {
       toast({

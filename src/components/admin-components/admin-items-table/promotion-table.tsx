@@ -1,4 +1,5 @@
 "use client";
+
 import { TableCell, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { Promotion } from "@/types/domain-types";

@@ -1,4 +1,3 @@
-import { EditFaq } from "@/server/faq-actions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,11 +9,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { EditFaq } from "@/server/faq-actions";
 import { EditFaqRequest } from "@/types/admin-types/admin-faq-types";
 import { Faq } from "@/types/domain-types";
+import { ConfirmationWindow } from "@/utils/alerts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -29,9 +28,6 @@ type EditFaqModalProps = {
   action: (result: any) => void;
 };
 export function EditFaqForm({ ...props }: EditFaqModalProps) {
-  const router = useRouter();
-  const closeDialogRef = useRef<HTMLButtonElement>(null);
-
   const { faq, action } = props;
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
@@ -41,6 +37,9 @@ export function EditFaqForm({ ...props }: EditFaqModalProps) {
     },
   });
   const onSubmit = async (data: FormType) => {
+    if(!ConfirmationWindow("Are you sure you want to edit this FAQ?")){
+      return;
+    }
     const request: EditFaqRequest = {
       question: data.question,
       answer: data.answer,

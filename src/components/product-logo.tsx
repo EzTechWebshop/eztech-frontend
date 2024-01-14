@@ -4,6 +4,7 @@ import { Product } from "@/types/domain-types";
 import Image from "next/image";
 
 const basePath = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+
 type ProductAvatarProps = {
   product: Product;
 };

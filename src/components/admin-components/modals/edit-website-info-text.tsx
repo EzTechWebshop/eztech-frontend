@@ -1,6 +1,5 @@
 "use client";
-import { AddWebsiteTextForm } from "@/components/admin-components/forms/website-info/add-website-info-text-form";
-import EditWebsiteInfoForm from "@/components/admin-components/forms/website-info/edit-website-info-form";
+
 import EditWebsiteInfoTextForm from "@/components/admin-components/forms/website-info/edit-website-info-text-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,10 +10,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
-import { WebsiteInfoField, WebsiteInfoFieldTopic } from "@/types/domain-types";
+import { WebsiteInfoField } from "@/types/domain-types";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import { IoAddOutline, IoPencilOutline, IoPencilSharp } from "react-icons/io5";
+import { IoPencilOutline } from "react-icons/io5";
 
 // PRODUCT MODALS AND POPOVERS
 type AddWebsiteInfoTextModalProps = {
@@ -32,7 +31,8 @@ export default function EditWebsiteInfoTextModal({
     router.refresh();
     closeDialogRef.current?.click();
     toast({
-      title: "Success",
+      title: "Succesfully edited text",
+      description: `Edited text for ${infoText.type}`,
     });
   };
 

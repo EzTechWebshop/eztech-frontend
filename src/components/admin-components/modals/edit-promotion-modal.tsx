@@ -1,4 +1,5 @@
 "use client";
+
 import { EditPromotionForm } from "@/components/admin-components/forms/promotion/edit-promotion-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,7 +31,8 @@ export default function EditPromotionModal({
     router.refresh();
     closeDialogRef.current?.click();
     toast({
-      title: "Success",
+      title: "Succesfully edited promotion",
+      description: `Edited promotion ${promotion.title}`,
     });
   };
 

@@ -10,15 +10,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-
 import { EditWebsiteInfoText } from "@/server/website-info-actions";
+import { UpdateWebsiteInfoTextRequest } from "@/types/admin-types/admin-website-info-types";
 import { WebsiteInfoField } from "@/types/domain-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { UpdateWebsiteInfoTextRequest } from "@/types/admin-types/admin-website-info-types";
 
 const formSchema = z.object({
   title: z.string().min(2).max(100),
@@ -33,7 +31,6 @@ type EditWebsiteInfoTextFormProps = {
 export default function EditWebsiteInfoTextForm({
   ...props
 }: EditWebsiteInfoTextFormProps) {
-  const { toast } = useToast();
   const { details, action } = props;
   const [updatingDetails, setUpdatingDetails] = useState(false);
 

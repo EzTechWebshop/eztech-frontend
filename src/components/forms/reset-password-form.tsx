@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import * as z from "zod";
 import { Toggle } from "@/components/ui/toggle";
+import { ConfirmationWindow } from "@/utils/alerts";
 
 const formSchema = z.object({
   oldPassword: z.string().min(8).max(100),
@@ -44,6 +45,9 @@ export default function ResetPasswordForm() {
   });
 
   async function onSubmit(values: FormType) {
+    if(!ConfirmationWindow("Are you sure you want to change your password?")) {
+      return;
+    }
     setUpdatingDetails(true);
     const request: ChangeUserPasswordRequest = {
       oldPassword: values.oldPassword,
@@ -64,7 +68,7 @@ export default function ResetPasswordForm() {
       });
       return;
     }
-
+    
     if (response) {
       setUpdatingDetails(false);
       toast({

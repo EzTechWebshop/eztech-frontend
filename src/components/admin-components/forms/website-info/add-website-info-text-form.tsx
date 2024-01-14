@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,14 +10,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { AddWebsiteInfoText } from "@/server/website-info-actions";
 import { Textarea } from "@/components/ui/textarea";
+import { AddWebsiteInfoText } from "@/server/website-info-actions";
 import { AddWebsiteInfoFieldRequest } from "@/types/admin-types/admin-website-info-types";
 import { WebsiteInfoFieldTopic } from "@/types/domain-types";
+import { ConfirmationWindow } from "@/utils/alerts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -38,6 +37,9 @@ export function AddWebsiteTextForm({ ...props }: AddWebsiteTextFormProps) {
     },
   });
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    if(!ConfirmationWindow("Are you sure you want to create this text?")){
+      return;
+    }
     const request: AddWebsiteInfoFieldRequest = {
       topic: topic,
       title: data.name,

@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/table";
 import { Category, Product } from "@/types/domain-types";
 import { IoAddOutline, IoRemoveOutline } from "react-icons/io5";
+import SpinnerLoad from "@/components/loading-fields/spinner-load";
+
 
 type EditProductCategoriesProps = {
   product: Product;
@@ -27,7 +29,7 @@ export function EditProductCategories({
 }: EditProductCategoriesProps) {
   const { product, categories, addAction, removeAction } = props;
   if (categories == undefined) {
-    return <div>Loading...</div>;
+    return <SpinnerLoad />
   }
   const productCategoryIds = product.categories.map((category) => category.id);
   const productCategories = categories.filter((category) =>

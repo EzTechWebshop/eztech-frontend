@@ -1,10 +1,9 @@
-import { Heading } from "@radix-ui/themes";
-import React from "react";
+import SpinnerLoad from "@/components/loading-fields/spinner-load";
 
 export default function Loading() {
   return (
     <div className="flex flex-1">
-      <Heading size={"8"}>Loading...</Heading>
+      <SpinnerLoad />
     </div>
   );
 }

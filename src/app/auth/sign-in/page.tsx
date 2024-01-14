@@ -4,12 +4,11 @@ import { Link, Strong, Text } from "@radix-ui/themes";
 export type SignInPageProps = {
   searchParams: {
     message: string;
-    email?: string;
   };
 };
 
 export default function SignInPage({ ...props }: SignInPageProps) {
-  const { message, email } = props.searchParams;
+  const { message } = props.searchParams;
 
   return (
     <div className="flex flex-1">

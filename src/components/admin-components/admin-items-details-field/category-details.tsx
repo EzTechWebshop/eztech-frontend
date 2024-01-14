@@ -1,6 +1,6 @@
 "use client";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Category, Product } from "@/types/domain-types";
 import { Text } from "@radix-ui/themes";
@@ -10,6 +10,7 @@ import { DeleteCategory } from "@/server/category-actions";
 import { useToast } from "@/components/ui/use-toast";
 import DetailsBox from "@/components/admin-components/details-box";
 import DetailText from "@/components/admin-components/detail-text";
+import { ConfirmationWindow } from "@/utils/alerts";
 
 // ORDER DETAILS
 type CategoryDetailsProps = {
@@ -24,6 +25,10 @@ export default function CategoryDetails({ ...props }: CategoryDetailsProps) {
   const { category, products } = props.item;
 
   const handleDeleteCategory = async () => {
+    if(!ConfirmationWindow("Are you sure you want to delete this category?")){
+      return;
+    }
+    
     const res = await DeleteCategory(category.id);
     if (res == "Category deleted") {
       router.push("/admin/categories");

@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-
 import { EditWebsiteInfo } from "@/server/website-info-actions";
 import { WebsiteInfo } from "@/types/domain-types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +19,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { UpdateWebsiteInfoRequest } from "@/types/admin-types/admin-website-info-types";
+import { ConfirmationWindow } from "@/utils/alerts";
 
 const formSchema = z.object({
   name: z.string().min(2).max(20),
@@ -71,6 +71,9 @@ export default function EditWebsiteInfoForm({
   });
 
   async function onSubmit(values: FormType) {
+    if(!ConfirmationWindow("Are you sure you want to edit this website info?")){
+      return;
+    }
     setUpdatingDetails(true);
     const request: UpdateWebsiteInfoRequest = {
       name: values.name,
