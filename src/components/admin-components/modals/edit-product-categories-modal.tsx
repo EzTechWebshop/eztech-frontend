@@ -1,6 +1,6 @@
 "use client";
 import { GetCategories } from "@/server/category-actions";
-import { EditProductCategories } from "@/components/forms/product/edit-product-categories";
+import { EditProductCategories } from "@/components/admin-components/forms/product/edit-product-categories";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

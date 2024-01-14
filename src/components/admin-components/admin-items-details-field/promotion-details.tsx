@@ -1,4 +1,4 @@
-import AddImageToPromotion from "@/components/actions/add-image-to-promotion";
+import AddImageToPromotion from "@/components/admin-components/actions/add-image-to-promotion";
 import DetailText from "@/components/admin-components/detail-text";
 import DetailsBox from "@/components/admin-components/details-box";
 import { Button } from "@/components/ui/button";

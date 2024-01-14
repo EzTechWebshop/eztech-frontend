@@ -16,7 +16,7 @@ import AdminTable from "@/components/admin-components/admin-items-table";
 import { Text } from "@radix-ui/themes";
 import AdminItemDetails from "@/components/admin-components/admin-items-details-field";
 import { useRouter } from "next/navigation";
-import { CreateCategoryForm } from "@/components/forms/category/add-category-form";
+import { CreateCategoryForm } from "@/components/admin-components/forms/category/add-category-form";
 
 type CategoryManagementProps = {
   data: AdminManagementCategories;

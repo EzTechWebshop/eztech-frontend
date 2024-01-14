@@ -1,5 +1,5 @@
 import AdminWebsiteTextEdit from "@/components/admin-components/admin-website-text-edit";
-import EditWebsiteInfoForm from "@/components/forms/website-info/edit-website-info-form";
+import EditWebsiteInfoForm from "@/components/admin-components/forms/website-info/edit-website-info-form";
 import { AdminManagementWebsiteInfo } from "@/types/admin-types/admin-website-info-types";
 import { Heading } from "@radix-ui/themes";
 import React from "react";

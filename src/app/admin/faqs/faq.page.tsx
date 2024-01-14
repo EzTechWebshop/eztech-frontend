@@ -20,8 +20,8 @@ import { Text } from "@radix-ui/themes";
 import { ReactNode, useRef } from "react";
 import { IoAddOutline, IoTrashBinOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-import { CreateFaqForm } from "@/components/forms/faq/create-faq-form";
-import { EditFaqForm } from "@/components/forms/faq/edit-faq-form";
+import { CreateFaqForm } from "@/components/admin-components/forms/faq/create-faq-form";
+import { EditFaqForm } from "@/components/admin-components/forms/faq/edit-faq-form";
 import { DeleteFaq } from "@/server/faq-actions";
 
 type FaqManagementProps = {

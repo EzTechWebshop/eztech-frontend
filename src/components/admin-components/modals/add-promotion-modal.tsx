@@ -11,7 +11,7 @@ import { HandleQueryChange } from "@/utils/handle-query-change";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { IoAddOutline } from "react-icons/io5";
-import { AddPromotionForm } from "@/components/forms/promotion/add-promotion-form";
+import { AddPromotionForm } from "@/components/admin-components/forms/promotion/add-promotion-form";
 
 export default function AddPromotionModal() {
   const router = useRouter();

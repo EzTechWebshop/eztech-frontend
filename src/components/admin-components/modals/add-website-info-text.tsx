@@ -1,5 +1,5 @@
 "use client";
-import { AddWebsiteTextForm } from "@/components/forms/website-info/add-website-info-text-form";
+import { AddWebsiteTextForm } from "@/components/admin-components/forms/website-info/add-website-info-text-form";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

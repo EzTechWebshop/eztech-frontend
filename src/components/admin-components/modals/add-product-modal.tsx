@@ -1,5 +1,5 @@
 "use client";
-import { AddProductForm } from "@/components/forms/product/add-product-form";
+import { AddProductForm } from "@/components/admin-components/forms/product/add-product-form";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

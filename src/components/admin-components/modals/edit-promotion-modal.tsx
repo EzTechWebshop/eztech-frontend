@@ -1,5 +1,5 @@
 "use client";
-import { EditPromotionForm } from "@/components/forms/promotion/edit-promotion-form";
+import { EditPromotionForm } from "@/components/admin-components/forms/promotion/edit-promotion-form";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
