@@ -79,7 +79,7 @@ export default function ProductDetails({ ...props }: ProductDetailsProps) {
                     <DetailText label={'Discount'} text={item.discount} />
                     <DetailText label={'Rating'} text={item.averageRating} />
                 </DetailsBox>
-                <DetailsBox label={'Categories'}>
+                <DetailsBox className='grid grid-cols-4 gap-4' label={'Categories'}>
                     {item.categories.map((category) => (
                         <div
                             className="flex border-2 rounded-lg shadow-sm py-1 px-2 h-8 items-center"
@@ -88,7 +88,12 @@ export default function ProductDetails({ ...props }: ProductDetailsProps) {
                             {category.name}
                         </div>
                     ))}
-                    <EditProductCategoriesModal product={item} />
+                    <div className='flex flex-1 col-span-4 justify-between items-center'>
+                        <Text>Edit Categories</Text>
+                        <div className='flex justify-end'>
+                        <EditProductCategoriesModal product={item} />
+                        </div>
+                    </div>
                 </DetailsBox>
             </div>
             <div className="flex space-x-4">

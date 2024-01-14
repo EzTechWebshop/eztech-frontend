@@ -50,7 +50,7 @@ function Wishlist({ ...props }: WishlistProps) {
             </SheetTrigger>
             <SheetContent className="select-none">
                 <SheetHeader>My Wishlist</SheetHeader>
-                <div className="max-h-[80vh] overflow-y-auto p-2">
+                <div className="flex flex-col max-h-[80vh] overflow-y-auto p-2 gap-4">
                     {wishlist.products.map((wishlistItem) => (
                         <div key={wishlistItem.id}>
                             <WishlistItemCard product={wishlistItem} />

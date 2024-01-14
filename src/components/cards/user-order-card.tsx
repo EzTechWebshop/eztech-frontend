@@ -21,7 +21,8 @@ import {
 } from '@/components/ui/table'
 
 import { Order } from '@/types/domain-types'
-import { Button, Text } from '@radix-ui/themes'
+import { Text } from '@radix-ui/themes'
+import { Button } from '@/components/ui/button';
 
 type UserOrderCardProps = {
     order: Order
@@ -98,8 +99,8 @@ export default function UserOrderCard({ ...props }: UserOrderCardProps) {
                 </div>
             </CardContent>
             <CardFooter className="flex space-x-4">
-                <Button>Return Order</Button>
-                <Button>Cancel Order</Button>
+                <Button variant={"outline"}>Return Order</Button>
+                <Button variant={"destructive"}>Cancel Order</Button>
             </CardFooter>
         </Card>
     )

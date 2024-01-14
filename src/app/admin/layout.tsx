@@ -20,27 +20,27 @@ export default function AdminLayout({
                         </Link>
                     </div>
                     <div className="flex gap-4 items-center">
-                        <AdminLayoutButton>
-                            <Link href="/admin/dashboard">Dashboard</Link>
-                        </AdminLayoutButton>
-                        <AdminLayoutButton>
-                            <Link href="/admin/products">Products</Link>
-                        </AdminLayoutButton>
-                        <AdminLayoutButton>
-                            <Link href="/admin/orders">Orders</Link>
-                        </AdminLayoutButton>
-                        <AdminLayoutButton>
-                            <Link href="/admin/faqs">FAQs</Link>
-                        </AdminLayoutButton>
-                        <AdminLayoutButton>
-                            <Link href="/admin/categories">Categories</Link>
-                        </AdminLayoutButton>
-                        <AdminLayoutButton>
-                            <Link href="/admin/website-info">Website Info</Link>
-                        </AdminLayoutButton>
-                        <AdminLayoutButton>
-                            <Link href="/admin/promotions">Promotions</Link>
-                        </AdminLayoutButton>
+                        <Link href="/admin/dashboard">
+                            <AdminLayoutButton>Dashboard</AdminLayoutButton>
+                        </Link>
+                        <Link href="/admin/products">
+                            <AdminLayoutButton>Products</AdminLayoutButton>
+                        </Link>
+                        <Link href="/admin/orders">
+                            <AdminLayoutButton>Orders</AdminLayoutButton>
+                        </Link>
+                        <Link href="/admin/faqs">
+                            <AdminLayoutButton>FAQs</AdminLayoutButton>
+                        </Link>
+                        <Link href="/admin/categories">
+                            <AdminLayoutButton>Categories</AdminLayoutButton>
+                        </Link>
+                        <Link href="/admin/website-info">
+                            <AdminLayoutButton>Website Info</AdminLayoutButton>
+                        </Link>
+                        <Link href="/admin/promotions">
+                            <AdminLayoutButton>Promotions</AdminLayoutButton>
+                        </Link>
                     </div>
                 </div>
             </div>

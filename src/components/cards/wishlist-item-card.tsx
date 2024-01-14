@@ -13,9 +13,12 @@ export default function WishlistItemCard({ ...props }: WishlistItemCardProps) {
         <div className="flex flex-col gap-4 p-2 rounded-lg border-2">
             <div className="flex justify-between items-center">
                 <div className="flex flex-col">
+                    <div className='mb-2'>
+
                     <Text>{product.name}</Text>
-                    <Text size={'2'}>Stock: {product.stock}</Text>
-                    <Text size={'2'}>Price: {product.price}</Text>
+                    </div>
+                    <Text size={'2'}>Stock: {product.stock} </Text>
+                    <Text size={'2'}>Price: {product.price} DKK</Text>
                     {product.stock <= 0 && (
                         <Text color="red">
                             <Strong>SOLD OUT</Strong>
